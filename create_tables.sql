@@ -1,0 +1,50 @@
+CREATE TABLE curso (
+  id INTEGER PRIMARY KEY,
+  grauAcademico VARCHAR(255) NULL DEFAULT NULL,
+  modalidade VARCHAR(255) NULL DEFAULT NULL,
+  nome VARCHAR(255) NULL DEFAULT NULL
+);
+
+CREATE TABLE aluno (
+  id VARCHAR(255) PRIMARY KEY,
+  curso_id INTEGER NULL REFERENCES curso(id)
+);
+
+CREATE TABLE disciplina (
+  id INTEGER PRIMARY KEY,
+  cargaHoraria INTEGER NULL DEFAULT NULL,
+  coRequisitos TEXT NULL DEFAULT NULL,
+  codigo VARCHAR(255) NULL DEFAULT NULL,
+  equivalencias TEXT NULL DEFAULT NULL,
+  nome VARCHAR(255) NULL DEFAULT NULL,
+  preRequisitos TEXT NULL DEFAULT NULL
+);
+
+CREATE TABLE matrizcurricular (
+  id INTEGER PRIMARY KEY,
+  nomeMatriz VARCHAR(255) NULL DEFAULT NULL,
+  curso_id INTEGER REFERENCES curso(id)
+);
+
+CREATE TABLE matrizdisciplina (
+  id INTEGER PRIMARY KEY,
+  naturezaDisciplina VARCHAR(255) NULL DEFAULT NULL,
+  semestreIdeal INTEGER NULL DEFAULT NULL,
+  disciplina_id INTEGER REFERENCES disciplina(id),
+  matriz_id INTEGER REFERENCES matrizcurricular(id)
+);
+
+CREATE TABLE turma (
+  id INTEGER PRIMARY KEY,
+  codigoTurma VARCHAR(255) NULL DEFAULT NULL,
+  idDocente REAL NULL DEFAULT NULL,
+  idDocenteExterno REAL NULL DEFAULT NULL,
+  idComponenteCurricular INTEGER NULL DEFAULT NULL,
+  mediaNotas REAL NULL DEFAULT NULL,
+  numeroAprovados INTEGER NULL DEFAULT NULL,
+  numeroReprovados INTEGER NULL DEFAULT NULL,
+  ano INTEGER CONSTRAINT year CHECK (ano BETWEEN 1000 AND 9999),
+  periodoLetivo VARCHAR(255) NULL DEFAULT NULL,
+  qtdeAulasLancadas INTEGER NULL DEFAULT NULL,
+  disciplina_id INTEGER REFERENCES disciplina(id)
+);
