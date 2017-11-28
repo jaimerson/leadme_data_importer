@@ -2,10 +2,6 @@
 
 Create the database:
 
-### Setup
-
-Create the database:
-
 ```bash
 psql -c 'CREATE DATABASE leadme_topicos WITH TEMPLATE template1'
 ```
