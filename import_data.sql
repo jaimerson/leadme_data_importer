@@ -24,3 +24,22 @@ HEADER
 DELIMITER ';';
 
 END TRANSACTION;
+
+-- import matrizes
+
+BEGIN TRANSACTION;
+
+CREATE TEMPORARY TABLE temp_matriz(id INT, nomeMatriz VARCHAR(255), curso_id INT) ON COMMIT DROP;
+
+COPY temp_matriz (
+  id, nomeMatriz, curso_id
+) FROM '__ESTRUTURAS_CSV_PATH__'
+CSV
+HEADER
+DELIMITER ';';
+
+INSERT INTO matrizcurricular (id, nomeMatriz, curso_id)
+SELECT temp_matriz.id, nomeMatriz, curso_id FROM temp_matriz
+INNER JOIN curso ON curso.id = temp_matriz.curso_id;
+
+END TRANSACTION;
