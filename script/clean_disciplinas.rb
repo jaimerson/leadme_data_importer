@@ -1,6 +1,6 @@
 require 'csv'
 
-csv = CSV.read('./data/componentes-curriculares-presenciais.csv', headers: true, col_sep: ';')
+csv = CSV.read('./raw_data/componentes-curriculares-presenciais.csv', headers: true, col_sep: ';')
 (csv.headers - %w[id_componente codigo nome ch_total equivalencia pre_requisito co_requisito]).each { |c| csv.delete(c) }
 
 options = {

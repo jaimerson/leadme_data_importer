@@ -1,6 +1,6 @@
 require 'csv'
 
-csv = CSV.read('./data/cursos-graduacao.csv', headers: true, col_sep: ';')
+csv = CSV.read('./raw_data/cursos-graduacao.csv', headers: true, col_sep: ';')
 (csv.headers - %w[id_curso nome grau_academico modalidade_educacao]).each { |c| csv.delete(c) }
 
 options = {
