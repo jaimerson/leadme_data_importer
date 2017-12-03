@@ -43,3 +43,16 @@ SELECT temp_matriz.id, nomeMatriz, curso_id FROM temp_matriz
 INNER JOIN curso ON curso.id = temp_matriz.curso_id;
 
 END TRANSACTION;
+
+-- import disciplinas
+
+BEGIN TRANSACTION;
+
+COPY disciplina (
+  id, codigo, nome, cargaHoraria, equivalencias, preRequisitos, coRequisitos
+) FROM '__DISCIPLINA_CSV_PATH__'
+CSV
+HEADER
+DELIMITER ';';
+
+END TRANSACTION;
