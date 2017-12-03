@@ -56,3 +56,30 @@ HEADER
 DELIMITER ';';
 
 END TRANSACTION;
+
+-- import matrizDisciplinas
+
+BEGIN TRANSACTION;
+
+CREATE TEMPORARY TABLE temp_matriz_disciplina (
+  id INT,
+  matriz_id INT,
+  disciplina_id INT,
+  naturezaDisciplina VARCHAR(255)
+) ON COMMIT DROP;
+
+COPY temp_matriz_disciplina (
+  id, matriz_id, disciplina_id, naturezaDisciplina
+) FROM '__MATRIZ_DISCIPLINA_CSV_PATH__'
+CSV
+HEADER
+DELIMITER ';';
+
+INSERT INTO matrizdisciplina (
+  id, matriz_id, disciplina_id, naturezaDisciplina
+) SELECT temp_matriz_disciplina.id, matriz_id, disciplina_id, naturezaDisciplina
+FROM temp_matriz_disciplina
+INNER JOIN matrizcurricular ON matrizcurricular.id = temp_matriz_disciplina.matriz_id
+INNER JOIN disciplina ON disciplina.id = temp_matriz_disciplina.disciplina_id;
+
+END TRANSACTION;
