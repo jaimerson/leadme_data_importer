@@ -65,19 +65,20 @@ CREATE TEMPORARY TABLE temp_matriz_disciplina (
   id INT,
   matriz_id INT,
   disciplina_id INT,
+  semestre_oferta INT,
   naturezaDisciplina VARCHAR(255)
 ) ON COMMIT DROP;
 
 COPY temp_matriz_disciplina (
-  id, matriz_id, disciplina_id, naturezaDisciplina
+  id, matriz_id, disciplina_id, semestre_oferta, naturezaDisciplina
 ) FROM '__MATRIZ_DISCIPLINA_CSV_PATH__'
 CSV
 HEADER
 DELIMITER ';';
 
 INSERT INTO matrizdisciplina (
-  id, matriz_id, disciplina_id, naturezaDisciplina
-) SELECT temp_matriz_disciplina.id, matriz_id, disciplina_id, naturezaDisciplina
+  id, matriz_id, disciplina_id, semestreideal, naturezaDisciplina
+) SELECT temp_matriz_disciplina.id, matriz_id, disciplina_id, semestre_oferta, naturezaDisciplina
 FROM temp_matriz_disciplina
 INNER JOIN matrizcurricular ON matrizcurricular.id = temp_matriz_disciplina.matriz_id
 INNER JOIN disciplina ON disciplina.id = temp_matriz_disciplina.disciplina_id;
