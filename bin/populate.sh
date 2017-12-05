@@ -1,5 +1,5 @@
 #!/bin/bash
-TURMAS_CSV="$PWD/data/resultado2017.csv"
+TURMAS_CSV="$PWD/data/matriculas-uniq.csv"
 CURSO_CSV="$PWD/data/cursos.csv"
 ESTRUTURAS_CSV="$PWD/data/matrizes.csv"
 DISCIPLINA_CSV="$PWD/data/disciplinas.csv"
